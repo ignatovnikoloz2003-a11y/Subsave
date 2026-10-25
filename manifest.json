@@ -1,0 +1,14 @@
+{
+  "id": "/Subsave/",
+  "name": "SubSave — Подписки под контролем",
+  "short_name": "SubSave",
+  "description": "Трекер регулярных расходов и подписок",
+  "lang": "ru",
+  "start_url": "/Subsave/",
+  "scope": "/Subsave/",
+  "display": "standalone",
+  "background_color": "#090b10",
+  "theme_color": "#090b10",
+  "orientation": "portrait",
+  "icons": []
+}
