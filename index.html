@@ -12,6 +12,8 @@
 @media(min-width:600px){.app{padding-top:32px}.modal-backdrop{align-items:center}.cards{grid-template-columns:1fr 1fr}.sub-card{min-width:0}.hero{padding:28px}.total{font-size:50px}}
 @media(max-width:370px){.app{padding-left:11px;padding-right:11px}.hero{padding:17px}.sub-card{padding:12px}.sub-price{font-size:14px}.form-grid{grid-template-columns:1fr}.form-row.full{grid-column:auto}.chip{font-size:10px;padding:7px 8px}}
 </style>
+<link rel="manifest" href="/Subsave/manifest.json">
+<meta name="theme-color" content="#090b10">
 </head>
 <body>
 <div class="app">
@@ -261,6 +263,14 @@
   document.addEventListener('keydown',e=>{if(e.key==='Escape' && $('modalBackdrop').classList.contains('show'))closeModal();});
   load(); render();
 })();
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/Subsave/service-worker.js")
+      .catch(error => console.error("Service Worker:", error));
+  });
+}
 </script>
 </body>
 </html>
