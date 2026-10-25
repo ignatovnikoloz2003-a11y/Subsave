@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0d12">
+<meta name="description" content="SubSave — контроль регулярных подписок и платежей.">
+<title>SubSave — подписки под контролем</title>
+<style>
+:root{color-scheme:dark;--bg:#090b10;--panel:#121620;--panel2:#171d29;--line:#252d3b;--text:#f3f6fb;--muted:#8d98aa;--green:#72f0b0;--green2:#39c985;--red:#ff6b7c;--yellow:#ffd37a;--radius:20px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(1000px 450px at 50% -180px,#18352e 0%,transparent 70%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:0 auto;padding:22px 16px calc(36px + env(safe-area-inset-bottom))}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:5px 0 24px}.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;border-radius:14px;background:linear-gradient(145deg,#a2ffd0,#37c786);display:grid;place-items:center;color:#07130d;font-weight:950;font-size:22px;box-shadow:0 7px 25px #39c98522}.brand h1{font-size:21px;letter-spacing:-.8px;margin:0}.brand p{margin:3px 0 0;font-size:12px;color:var(--muted)}.chip{border:1px solid #285340;background:#12271e;color:var(--green);padding:8px 11px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap}.hero{border:1px solid #293d36;border-radius:26px;padding:22px;background:linear-gradient(135deg,#14271f,#111820 68%);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:190px;height:190px;border-radius:50%;right:-75px;top:-100px;background:#63edaa12;border:1px solid #63edaa17}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#a5b5ac;font-weight:800}.total{font-size:clamp(34px,9vw,48px);font-weight:850;letter-spacing:-2px;margin:9px 0 2px;overflow-wrap:anywhere}.total small{font-size:19px;letter-spacing:0;color:#a7b8af;font-weight:600}.hero-sub{font-size:13px;color:#a6b5ae}.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}.mini{border:1px solid #ffffff12;background:#ffffff07;padding:13px;border-radius:16px;min-width:0}.mini .label{font-size:11px;color:#9eaaa7}.mini .value{font-size:18px;font-weight:800;margin-top:5px;overflow-wrap:anywhere}.section-head{display:flex;justify-content:space-between;align-items:center;margin:28px 2px 13px;gap:10px}.section-head h2{font-size:18px;margin:0;letter-spacing:-.4px}.section-head span{font-size:12px;color:var(--muted)}.btn{border:0;border-radius:14px;padding:12px 15px;font-weight:800;transition:transform .12s,opacity .12s}.btn:active{transform:scale(.98)}.btn-primary{background:var(--green);color:#08150e}.btn-secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.btn-danger{background:#381b24;color:#ff9eaa;border:1px solid #5c2733}.btn-small{padding:9px 11px;font-size:12px;border-radius:11px}.filter-row{display:flex;gap:8px;margin-bottom:13px}.search{flex:1;min-width:0}.field{width:100%;background:#0c1017;color:var(--text);border:1px solid #2b3443;border-radius:13px;padding:12px 13px;outline:none}.field:focus{border-color:#4fbd8b;box-shadow:0 0 0 3px #39c98518}.field::placeholder{color:#697587}select.field{appearance:auto}.cards{display:grid;gap:11px}.sub-card{background:linear-gradient(145deg,#151b26,#10141c);border:1px solid var(--line);border-radius:19px;padding:15px}.card-top{display:flex;align-items:center;gap:12px}.sub-icon{width:45px;height:45px;display:grid;place-items:center;border-radius:14px;background:#202a38;font-size:20px;flex-shrink:0}.sub-main{min-width:0;flex:1}.sub-name{font-size:15px;font-weight:800;overflow-wrap:anywhere}.sub-meta{font-size:12px;color:var(--muted);margin-top:4px}.sub-price{text-align:right;font-size:16px;font-weight:850;white-space:nowrap}.sub-price small{display:block;font-size:10px;font-weight:600;color:var(--muted);margin-top:3px}.card-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:15px;padding-top:12px;border-top:1px solid #ffffff0c}.due{font-size:12px;color:#c0c8d3}.due strong{color:var(--green)}.actions{display:flex;gap:7px}.empty{padding:30px 20px;border:1px dashed #303a49;border-radius:19px;text-align:center;color:var(--muted)}.empty .emoji{font-size:32px;margin-bottom:10px}.empty b{display:block;color:var(--text);margin-bottom:5px}.empty p{font-size:13px;line-height:1.5;margin:0 0 15px}.notice{margin-top:24px;border:1px solid var(--line);background:#11151d;border-radius:17px;padding:15px;color:var(--muted);font-size:12px;line-height:1.6}.notice strong{color:#dbe4ed}.backup-panel{margin-top:12px;border:1px solid var(--line);background:#11151d;border-radius:17px;padding:15px}.backup-panel h3{margin:0 0 6px;font-size:15px}.backup-panel p{margin:0 0 13px;color:var(--muted);font-size:12px;line-height:1.5}.backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:17px;color:#687385;font-size:11px}.link-btn{background:none;border:0;color:#9ca8b8;text-decoration:underline;text-underline-offset:3px;padding:4px}.modal-backdrop{position:fixed;inset:0;background:#000b;backdrop-filter:blur(7px);display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:10}.modal-backdrop.show{display:flex}.modal{width:100%;max-width:560px;max-height:92vh;overflow:auto;background:#121721;border:1px solid #303949;border-radius:25px;padding:20px;box-shadow:0 20px 80px #0009}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.modal-head h2{margin:0;font-size:20px}.close{border:1px solid var(--line);background:#1b2230;color:#fff;width:36px;height:36px;border-radius:12px;font-size:21px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.form-row{display:flex;flex-direction:column;gap:7px;min-width:0}.form-row.full{grid-column:1/-1}.form-row label{font-size:12px;color:#aeb8c6;font-weight:700}.form-actions{display:flex;gap:9px;margin-top:20px}.form-actions .btn{flex:1}.hint{font-size:11px;color:var(--muted);line-height:1.5;margin-top:13px}.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#e9fff3;color:#082116;padding:12px 16px;border-radius:14px;font-size:13px;font-weight:800;box-shadow:0 10px 40px #0007;z-index:20;transition:.2s;max-width:calc(100vw - 32px);text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:600px){.app{padding-top:32px}.modal-backdrop{align-items:center}.cards{grid-template-columns:1fr 1fr}.sub-card{min-width:0}.hero{padding:28px}.total{font-size:50px}}
+@media(max-width:370px){.app{padding-left:11px;padding-right:11px}.hero{padding:17px}.sub-card{padding:12px}.sub-price{font-size:14px}.form-grid{grid-template-columns:1fr}.form-row.full{grid-column:auto}.chip{font-size:10px;padding:7px 8px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="logo">S</div><div><h1>SubSave</h1><p>Подписки под контролем</p></div></div>
+    <div class="chip">● ЛИЧНЫЙ ТРЕКЕР</div>
+  </header>
+
+  <section class="hero" aria-labelledby="overviewTitle">
+    <div class="eyebrow" id="overviewTitle">Регулярные расходы в месяц</div>
+    <div class="total" id="monthlyTotal">0,00 <small>GEL / мес.</small></div>
+    <div class="hero-sub">Сумма по всем активным подпискам</div>
+    <div class="hero-grid">
+      <div class="mini"><div class="label">В год (оценка)</div><div class="value" id="yearlyTotal">0,00 GEL</div></div>
+      <div class="mini"><div class="label">Активных подписок</div><div class="value" id="subCount">0</div></div>
+    </div>
+  </section>
+
+  <div class="section-head"><h2>Мои подписки</h2><span id="listCount">0 записей</span></div>
+  <div class="filter-row"><input class="field search" id="searchInput" type="search" placeholder="Найти подписку…" aria-label="Поиск подписок"><button class="btn btn-primary" id="addBtn">＋ Добавить</button></div>
+  <div class="cards" id="subscriptionList"></div>
+
+  <div class="section-head"><h2>Ближайшие платежи</h2><span>Следующие 30 дней</span></div>
+  <div class="cards" id="upcomingList"></div>
+
+  <section class="notice"><strong>🔒 Данные остаются на этом устройстве.</strong><br>Подписки сохраняются в хранилище браузера. Регулярно скачивай резервную копию. Сервис не подключён к банку и не отменяет подписки автоматически.</section>
+  <section class="backup-panel" aria-label="Резервное копирование">
+    <h3>Резервная копия</h3><p>Сохрани подписки в JSON-файл или восстанови их из ранее созданной копии.</p>
+    <div class="backup-actions"><button class="btn btn-secondary" id="exportBtn">↓ Экспортировать</button><button class="btn btn-secondary" id="importBtn">↑ Импортировать</button></div>
+    <input type="file" id="importFile" accept=".json,application/json" hidden>
+  </section>
+  <div class="footer"><span>SubSave v0.2 · прототип</span><button class="link-btn" id="resetBtn">Удалить все данные</button></div>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-head"><h2 id="modalTitle">Новая подписка</h2><button class="close" id="closeModal" aria-label="Закрыть">×</button></div>
+    <form id="subscriptionForm">
+      <div class="form-grid">
+        <div class="form-row full"><label for="name">Название *</label><input class="field" id="name" maxlength="70" required placeholder="Например, Spotify"></div>
+        <div class="form-row"><label for="price">Цена *</label><input class="field" id="price" type="number" min="0.01" max="100000000" step="0.01" required inputmode="decimal" placeholder="9.99"></div>
+        <div class="form-row"><label for="currency">Валюта</label><select class="field" id="currency"><option value="GEL">GEL — лари</option><option value="USD">USD — доллар</option><option value="EUR">EUR — евро</option><option value="RUB">RUB — рубль</option><option value="GBP">GBP — фунт</option><option value="TRY">TRY — лира</option><option value="AMD">AMD — драм</option><option value="UAH">UAH — гривна</option><option value="KZT">KZT — тенге</option></select></div>
+        <div class="form-row"><label for="period">Период оплаты</label><select class="field" id="period"><option value="monthly">Каждый месяц</option><option value="yearly">Каждый год</option><option value="weekly">Каждую неделю</option><option value="daily">Каждый день</option><option value="quarterly">Раз в 3 месяца</option><option value="custom">Другой интервал (30 дней)</option></select></div>
+        <div class="form-row"><label for="nextDate">Следующая оплата *</label><input class="field" id="nextDate" type="date" required></div>
+        <div class="form-row"><label for="category">Категория</label><select class="field" id="category"><option>Развлечения</option><option>Музыка</option><option>Видео</option><option>Программы</option><option>Облако</option><option>Игры</option><option>Работа</option><option>Другое</option></select></div>
+        <div class="form-row"><label for="icon">Значок</label><select class="field" id="icon"><option value="📦">📦 Общий</option><option value="🎬">🎬 Видео</option><option value="🎵">🎵 Музыка</option><option value="🎮">🎮 Игры</option><option value="☁️">☁️ Облако</option><option value="💻">💻 Программы</option><option value="💼">💼 Работа</option><option value="📱">📱 Мобильная связь</option><option value="🤖">🤖 ИИ</option><option value="🏋️">🏋️ Спорт</option></select></div>
+        <div class="form-row full"><label for="notes">Заметка (необязательно)</label><input class="field" id="notes" maxlength="140" placeholder="Например, семейный тариф"></div>
+      </div>
+      <div class="hint">Расчёты показываются отдельно для каждой валюты: приложение не конвертирует курсы валют автоматически.</div>
+      <div class="form-actions"><button type="button" class="btn btn-secondary" id="cancelBtn">Отмена</button><button type="submit" class="btn btn-primary" id="saveBtn">Сохранить</button></div>
+    </form>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+  'use strict';
+  const STORAGE_KEY = 'subsave_v01_subscriptions';
+  const $ = (id) => document.getElementById(id);
+  const listEl = $('subscriptionList');
+  let subscriptions = [];
+  let editingId = null;
+  let toastTimer = null;
+  const periodLabels = {daily:'ежедневно',weekly:'еженедельно',monthly:'ежемесячно',quarterly:'раз в 3 месяца',yearly:'ежегодно',custom:'каждые 30 дней'};
+  const daysByPeriod = {daily:1,weekly:7,monthly:365.2425/12,quarterly:365.2425/4,yearly:365.2425,custom:30};
+
+  function makeId(){ return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + '-' + Math.random().toString(36).slice(2,10); }
+  function localDateString(date = new Date()) {
+    const y = date.getFullYear(), m = String(date.getMonth()+1).padStart(2,'0'), d = String(date.getDate()).padStart(2,'0');
+    return `${y}-${m}-${d}`;
+  }
+  function parseDate(value){
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value || '')) return null;
+    const [y,m,d] = value.split('-').map(Number);
+    const dt = new Date(y,m-1,d,12,0,0,0);
+    return dt.getFullYear()===y && dt.getMonth()===m-1 && dt.getDate()===d ? dt : null;
+  }
+  function escapeHtml(value){ return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function money(amount, currency){
+    try { return new Intl.NumberFormat('ru-RU',{style:'currency',currency,maximumFractionDigits:2}).format(amount); }
+    catch { return `${Number(amount).toFixed(2)} ${currency}`; }
+  }
+  function load(){
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) subscriptions = parsed.filter(x => x && typeof x.id==='string' && typeof x.name==='string' && Number.isFinite(Number(x.price)) && x.currency && x.period && x.nextDate);
+    } catch(e) { subscriptions = []; showToast('Не удалось прочитать сохранённые данные.'); }
+  }
+  function persist(){
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(subscriptions)); return true; }
+    catch(e) { showToast('Не удалось сохранить данные браузера. Возможно, память недоступна.'); return false; }
+  }
+  function showToast(message){
+    const el = $('toast'); el.textContent = message; el.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
+  }
+  function dateLabel(value){
+    const dt = parseDate(value); if(!dt) return 'Дата не указана';
+    return new Intl.DateTimeFormat('ru-RU',{day:'numeric',month:'short',year:'numeric'}).format(dt);
+  }
+  function daysUntil(value){
+    const due = parseDate(value); if(!due) return null;
+    const now = parseDate(localDateString());
+    return Math.round((due.getTime()-now.getTime())/86400000);
+  }
+  function dueText(value){
+    const n = daysUntil(value);
+    if(n===null) return 'Проверь дату оплаты';
+    if(n<0) return `Дата оплаты прошла ${Math.abs(n)} дн. назад`;
+    if(n===0) return 'Оплата сегодня';
+    if(n===1) return 'Оплата завтра';
+    if(n<7) return `Через ${n} дн.`;
+    return `Следующая: ${dateLabel(value)}`;
+  }
+  function monthlyEquivalent(item){ return Number(item.price) * (30.436875 / daysByPeriod[item.period]); }
+  function annualEquivalent(item){ return Number(item.price) * (365.2425 / daysByPeriod[item.period]); }
+  function totalsByCurrency(fn){
+    const totals = {};
+    for(const item of subscriptions){ totals[item.currency] = (totals[item.currency]||0) + fn(item); }
+    return totals;
+  }
+  function formatCurrencyTotals(totals){
+    const entries = Object.entries(totals).filter(([,v])=>Number.isFinite(v));
+    if(!entries.length) return '0,00 GEL';
+    return entries.map(([cur,val])=>money(val,cur)).join(' · ');
+  }
+  function renderSummary(){
+    $('monthlyTotal').innerHTML = `${escapeHtml(formatCurrencyTotals(totalsByCurrency(monthlyEquivalent)))} <small>/ мес.</small>`;
+    $('yearlyTotal').textContent = formatCurrencyTotals(totalsByCurrency(annualEquivalent));
+    $('subCount').textContent = String(subscriptions.length);
+    $('listCount').textContent = `${subscriptions.length} ${subscriptions.length===1?'запись':subscriptions.length>=2&&subscriptions.length<=4?'записи':'записей'}`;
+  }
+  function renderUpcoming(){
+    const target = $('upcomingList');
+    const upcoming = subscriptions.map(s=>({...s,days:daysUntil(s.nextDate)}))
+      .filter(s=>s.days!==null && s.days>=0 && s.days<=30)
+      .sort((a,b)=>a.days-b.days).slice(0,8);
+    if(!upcoming.length){ target.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="emoji">🗓️</div><b>Нет платежей в ближайшие 30 дней</b><p>Добавь подписку или проверь даты следующей оплаты.</p></div>'; return; }
+    target.innerHTML=upcoming.map(s=>`<article class="sub-card"><div class="card-top"><div class="sub-icon">${escapeHtml(s.icon||'📦')}</div><div class="sub-main"><div class="sub-name">${escapeHtml(s.name)}</div><div class="sub-meta">${escapeHtml(dateLabel(s.nextDate))}</div></div><div class="sub-price">${escapeHtml(money(Number(s.price),s.currency))}<small>${s.days===0?'сегодня':s.days===1?'завтра':`через ${s.days} дн.`}</small></div></div></article>`).join('');
+  }
+  function render(){
+    renderSummary();
+    renderUpcoming();
+    const query = $('searchInput').value.trim().toLocaleLowerCase('ru');
+    const filtered = subscriptions.filter(s => `${s.name} ${s.category||''} ${s.notes||''}`.toLocaleLowerCase('ru').includes(query));
+    if(!filtered.length){
+      listEl.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="emoji">${query?'🔎':'✨'}</div><b>${query?'Ничего не найдено':'Пока нет подписок'}</b><p>${query?'Попробуй другое название или очисти поиск.':'Добавь первую подписку — SubSave посчитает расходы за месяц и год.'}</p>${query?'':'<button class="btn btn-primary" data-action="add">＋ Добавить подписку</button>'}</div>`;
+      return;
+    }
+    filtered.sort((a,b) => (parseDate(a.nextDate)?.getTime()||0) - (parseDate(b.nextDate)?.getTime()||0));
+    listEl.innerHTML = filtered.map(s => {
+      const due = daysUntil(s.nextDate);
+      const dueColor = due!==null && due<=1 ? ' style="color:var(--yellow)"' : '';
+      return `<article class="sub-card" data-id="${escapeHtml(s.id)}">
+        <div class="card-top"><div class="sub-icon">${escapeHtml(s.icon||'📦')}</div><div class="sub-main"><div class="sub-name">${escapeHtml(s.name)}</div><div class="sub-meta">${escapeHtml(s.category||'Другое')} · ${escapeHtml(periodLabels[s.period]||'регулярно')}</div></div><div class="sub-price">${escapeHtml(money(Number(s.price),s.currency))}<small>за период</small></div></div>
+        ${s.notes?`<div class="sub-meta" style="margin-top:10px">${escapeHtml(s.notes)}</div>`:''}
+        <div class="card-bottom"><div class="due"${dueColor}>${escapeHtml(dueText(s.nextDate))}</div><div class="actions"><button class="btn btn-secondary btn-small" data-action="edit" data-id="${escapeHtml(s.id)}" aria-label="Изменить ${escapeHtml(s.name)}">Изменить</button><button class="btn btn-danger btn-small" data-action="delete" data-id="${escapeHtml(s.id)}" aria-label="Удалить ${escapeHtml(s.name)}">Удалить</button></div></div>
+      </article>`;
+    }).join('');
+  }
+  function openModal(item=null){
+    editingId = item ? item.id : null;
+    $('modalTitle').textContent = item ? 'Изменить подписку' : 'Новая подписка';
+    $('saveBtn').textContent = item ? 'Сохранить изменения' : 'Сохранить';
+    $('name').value = item?.name || '';
+    $('price').value = item ? String(item.price) : '';
+    $('currency').value = item?.currency || 'GEL';
+    $('period').value = item?.period || 'monthly';
+    $('nextDate').value = item?.nextDate || localDateString();
+    $('category').value = item?.category || 'Развлечения';
+    $('icon').value = item?.icon || '📦';
+    $('notes').value = item?.notes || '';
+    $('modalBackdrop').classList.add('show');
+    document.body.style.overflow='hidden';
+    setTimeout(()=>$('name').focus(),100);
+  }
+  function closeModal(){ $('modalBackdrop').classList.remove('show'); document.body.style.overflow=''; editingId=null; }
+  function saveForm(event){
+    event.preventDefault();
+    const name = $('name').value.trim();
+    const price = Number($('price').value);
+    const currency = $('currency').value;
+    const period = $('period').value;
+    const nextDate = $('nextDate').value;
+    if(!name){ showToast('Введи название подписки.'); $('name').focus(); return; }
+    if(!Number.isFinite(price)||price<=0||price>100000000){ showToast('Введи корректную цену больше нуля.'); $('price').focus(); return; }
+    if(!parseDate(nextDate)){ showToast('Выбери корректную дату следующей оплаты.'); $('nextDate').focus(); return; }
+    const record = {id:editingId||makeId(),name,price,currency,period,nextDate,category:$('category').value,icon:$('icon').value,notes:$('notes').value.trim(),updatedAt:new Date().toISOString()};
+    if(editingId){ const index=subscriptions.findIndex(s=>s.id===editingId); if(index>=0) subscriptions[index]=record; else subscriptions.push(record); }
+    else subscriptions.push(record);
+    persist(); render(); closeModal(); showToast(editingId?'Подписка обновлена':'Подписка добавлена');
+  }
+  function deleteSubscription(id){
+    const item=subscriptions.find(s=>s.id===id); if(!item) return;
+    if(!window.confirm(`Удалить подписку «${item.name}»?`)) return;
+    subscriptions=subscriptions.filter(s=>s.id!==id); persist(); render(); showToast('Подписка удалена');
+  }
+  function exportBackup(){
+    const payload={app:'SubSave',version:2,exportedAt:new Date().toISOString(),subscriptions};
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob); const a=document.createElement('a');
+    a.href=url; a.download=`subsave-backup-${localDateString()}.json`; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000); showToast('Резервная копия подготовлена');
+  }
+  function importBackupFile(file){
+    if(!file) return;
+    const reader=new FileReader();
+    reader.onload=()=>{
+      try{
+        const parsed=JSON.parse(String(reader.result||''));
+        const rows=Array.isArray(parsed)?parsed:parsed.subscriptions;
+        if(!Array.isArray(rows)) throw new Error('bad format');
+        const valid=rows.filter(x=>x&&typeof x.name==='string'&&x.name.trim()&&Number.isFinite(Number(x.price))&&Number(x.price)>0&&typeof x.currency==='string'&&daysByPeriod[x.period]&&parseDate(x.nextDate))
+          .map(x=>({id:typeof x.id==='string'?x.id:makeId(),name:x.name.trim(),price:Number(x.price),currency:x.currency,period:x.period,nextDate:x.nextDate,category:String(x.category||'Другое'),icon:String(x.icon||'📦'),notes:String(x.notes||''),updatedAt:x.updatedAt||new Date().toISOString()}));
+        if(!valid.length && rows.length) throw new Error('no valid rows');
+        if(!window.confirm(`Импортировать ${valid.length} подписок? Текущий список будет заменён.`)) return;
+        subscriptions=valid; if(persist()){render();showToast('Резервная копия восстановлена');}
+      }catch(e){showToast('Не удалось прочитать копию. Выбери JSON-файл SubSave.');}
+      $('importFile').value='';
+    };
+    reader.onerror=()=>showToast('Не удалось прочитать файл.'); reader.readAsText(file);
+  }
+  function resetAll(){
+    if(!subscriptions.length){ showToast('Список уже пуст.'); return; }
+    if(!window.confirm('Удалить ВСЕ подписки с этого устройства? Это действие нельзя отменить.')) return;
+    subscriptions=[]; persist(); render(); showToast('Все подписки удалены');
+  }
+  $('addBtn').addEventListener('click',()=>openModal());
+  $('closeModal').addEventListener('click',closeModal);
+  $('cancelBtn').addEventListener('click',closeModal);
+  $('modalBackdrop').addEventListener('click',e=>{if(e.target===$('modalBackdrop'))closeModal();});
+  $('subscriptionForm').addEventListener('submit',saveForm);
+  $('searchInput').addEventListener('input',render);
+  $('resetBtn').addEventListener('click',resetAll);
+  $('exportBtn').addEventListener('click',exportBackup);
+  $('importBtn').addEventListener('click',()=>$('importFile').click());
+  $('importFile').addEventListener('change',e=>importBackupFile(e.target.files&&e.target.files[0]));
+  listEl.addEventListener('click',e=>{
+    const btn=e.target.closest('button[data-action]'); if(!btn) return;
+    const action=btn.dataset.action;
+    if(action==='add'){openModal();return;}
+    const item=subscriptions.find(s=>s.id===btn.dataset.id); if(!item) return;
+    if(action==='edit')openModal(item); if(action==='delete')deleteSubscription(item.id);
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape' && $('modalBackdrop').classList.contains('show'))closeModal();});
+  load(); render();
+})();
+</script>
+</body>
+</html>
